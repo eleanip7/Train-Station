@@ -16,6 +16,13 @@
       //grab user input
       var trainName = $("#train-name-input").val().trim();
       var destination = $("#destination-input").val().trim();
-      var firstTrain = 
-      var frequency
-  })
+      var firstTrain = moment($("#first-train-input").val().trim(), "MM:HH").format("X");
+      var frequency = $("#frequency-input").val().trim();
+
+      var newTrain = {
+        name: trainName,
+        destination: destination,
+        firstTrain: firstTrain,
+        frequency: frequency,
+      }
+  });
