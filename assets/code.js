@@ -10,7 +10,8 @@
   firebase.initializeApp(config);
 
   //button for adding employees
-  $("#add-train-btn").in("click", function (event){ 
+  $("#add-train-btn").on("click", function (event){ 
+      console.log(function1)
       event.preventDefault();
 
       //grab user input
