@@ -8,3 +8,14 @@
     messagingSenderId: "1033753470572"
   };
   firebase.initializeApp(config);
+
+  //button for adding employees
+  $("#add-train-btn").in("click", function (event){ 
+      event.preventDefault();
+
+      //grab user input
+      var trainName = $("#train-name-input").val().trim();
+      var destination = $("#destination-input").val().trim();
+      var firstTrain = 
+      var frequency
+  })
