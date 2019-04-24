@@ -1,3 +1,4 @@
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyD9Y-rCQdBBPsSS8DPU3alY7vTXy9eLpi0",
@@ -23,7 +24,7 @@ $("#add-train-btn").on("click", function (event) {
     var destination = $("#destination-input").val().trim();
     var firstTrain = $("#first-train-input").val().trim();
     var frequency = parseInt($("#frequency-input").val().trim());
-    var dataArriv = 0;
+    var nextArrival = 0;
     var minsAway = 0;
 
     var timeconvert = moment(firstTrain, "HH:mm").subtract(1, "years");
