@@ -13,9 +13,6 @@ var database = firebase.database();
 
 //initial values
 
-var nextArrival = 0;
-var minsAway = 0;
-
 //button for adding employees
 $("#add-train-btn").on("click", function (event) {
     console.log("HI")
@@ -26,14 +23,24 @@ $("#add-train-btn").on("click", function (event) {
     var destination = $("#destination-input").val().trim();
     var firstTrain = $("#first-train-input").val().trim();
     var frequency = parseInt($("#frequency-input").val().trim());
+    var dataArriv = 0;
+    var minsAway = 0;
 
-// object that holds temporary data
+    var timeconvert = moment(firstTrain, "HH:mm").subtract(1, "years");
+    var difference = moment().diff(moment(timeconvert), "minutes");
+    var remain = difference % frequency;
+    minsAway = frequency - remain;
+    var nextTrain = moment().add(minsAway, "mins");
+    nextArrival = moment(nextTrain).format("hh:mm");
+
+    // object that holds temporary data
     var newTrain = {
         name: trainName,
         destination: destination,
+        firstTrain: firstTrain, 
         frequency: frequency,
         dataMins: minsAway,
-        dataArriv: nextArrival
+        dataArriv: nextArrival,
     };
 
     //Uploads to table train data
@@ -43,6 +50,8 @@ $("#add-train-btn").on("click", function (event) {
     console.log(newTrain.destination);
     console.log(newTrain.firstTrain);
     console.log(newTrain.frequency);
+    console.log(newTrain.dataMins);
+    console.log(newTrain.dataArriv);
 
     // Clears all of the text-boxes
     $("#train-name-input").val("");
@@ -51,3 +60,28 @@ $("#add-train-btn").on("click", function (event) {
     $("#frequency-input").val("");
 });
 
+database.ref().on("child_added", function (childSnapshot) {
+    console.log(childSnapshot.val());
+
+
+    var trainName = childSnapshot.val().name;
+    var destination = childSnapshot.val().destination;
+    var frequency = childSnapshot.val().frequency;
+    var dataArriv = childSnapshot.val().dataArriv;
+    var dataMins = childSnapshot.val().dataMins;
+    
+    
+
+    var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
+        $("<td>").text(destination),
+        $("<td>").text(frequency),
+        $("<td>").text(dataArriv),
+        $("<td>").text(dataMins),
+        
+        
+        
+
+    )
+    $("#train-table > tbody").append(newRow);
+});
